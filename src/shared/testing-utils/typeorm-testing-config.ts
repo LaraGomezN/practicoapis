@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlatoEntity } from 'src/plato/plato.entity';
-import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
+import { PlatoEntity } from '../../plato/plato.entity';
+import { RestauranteEntity } from '../../restaurante/restaurante.entity';
 
 export const TypeOrmTestingConfig = () => [
  TypeOrmModule.forRoot({

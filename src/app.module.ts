@@ -7,9 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlatoEntity } from './plato/plato.entity';
 import { RestauranteEntity } from './restaurante/restaurante.entity';
 import { RestaurantePlatoService } from './restaurante-plato/restaurante-plato.service';
+import { RestaurantePlatoModule } from './restaurante-plato/restaurante-plato.module';
 
 @Module({
-  imports: [RestauranteModule, PlatoModule,
+  imports: [RestauranteModule, PlatoModule, RestaurantePlatoModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -23,6 +24,6 @@ import { RestaurantePlatoService } from './restaurante-plato/restaurante-plato.s
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, RestaurantePlatoService],
+  providers: [AppService],
 })
 export class AppModule {}

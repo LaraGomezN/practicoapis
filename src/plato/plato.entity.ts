@@ -1,10 +1,13 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
+import { RestauranteEntity } from '../restaurante/restaurante.entity';
 
 @Entity()
 export class PlatoEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column()
+    nombre: string;
 
     @Column()
     descripcion: string;

@@ -7,6 +7,6 @@ import { PlatoEntity } from 'src/plato/plato.entity';
 
 @Module({
  imports: [TypeOrmModule.forFeature([RestauranteEntity, PlatoEntity])],
- providers: [RestaurantePlatoService],
+ providers: [RestaurantePlatoService]
 })
 export class RestaurantePlatoModule {}
