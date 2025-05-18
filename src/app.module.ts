@@ -6,6 +6,7 @@ import { PlatoModule } from './plato/plato.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlatoEntity } from './plato/plato.entity';
 import { RestauranteEntity } from './restaurante/restaurante.entity';
+import { RestaurantePlatoService } from './restaurante-plato/restaurante-plato.service';
 
 @Module({
   imports: [RestauranteModule, PlatoModule,
@@ -22,6 +23,6 @@ import { RestauranteEntity } from './restaurante/restaurante.entity';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RestaurantePlatoService],
 })
 export class AppModule {}
