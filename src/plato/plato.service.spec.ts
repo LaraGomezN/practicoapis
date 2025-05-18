@@ -58,6 +58,85 @@ describe('PlatoService', () => {
     expect(foundPlato.precio).toEqual(plato.precio);
   });
 
+  it('findOne should throw an exception for an invalid plato', async () => {
+    await seedDatabase();
+    await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "El plato con el id dado no fue encontrado");
+  });
+
+  it('create should return a new plato', async () => {
+    const plato: PlatoEntity = {
+      id: "",
+      nombre: faker.company.name(),
+      descripcion: faker.lorem.sentence(),
+      precio: faker.number.int({ min: 0 }),
+      categoria: "entrada",
+      restaurantes: []
+    }
+
+    const newPlato: PlatoEntity = await service.create(plato);
+    expect(newPlato).not.toBeNull();
+
+    const storedPlato = await repository.findOne({ where: { id: newPlato.id } });
+    expect(storedPlato).not.toBeNull();
+    expect(storedPlato!.nombre).toEqual(newPlato.nombre);
+    expect(storedPlato!.descripcion).toEqual(newPlato.descripcion);
+    expect(storedPlato!.precio).toEqual(newPlato.precio);
+  });
+
+  it('create should throw an exception for an invalid plato', async () => {
+    const plato: PlatoEntity = {
+      id: "",
+      nombre: faker.company.name(),
+      descripcion: faker.lorem.sentence(),
+      precio: faker.number.int({ min: 0 }),
+      categoria: "entrada",
+      restaurantes: []
+    }
+
+    plato.categoria = "invalid_categoria";
+    await expect(() => service.create(plato)).rejects.toHaveProperty("message", "El tipo de plato no es valido o el precio es menor a cero");
+  });
+
+  it('update should modify a plato', async () => {
+    await seedDatabase();
+    const plato: PlatoEntity = platosList[0];
+    plato.nombre = "New name";
+    plato.descripcion = "New description";
+    plato.precio = 100;
+    const updatedPlato: PlatoEntity = await service.update(plato.id, plato);
+    expect(updatedPlato).not.toBeNull();
+
+    const storedPlato: PlatoEntity | null = await repository.findOne({ where: { id: plato.id } });
+    expect(storedPlato).not.toBeNull();
+    expect(storedPlato!.nombre).toEqual(plato.nombre);
+    expect(storedPlato!.descripcion).toEqual(plato.descripcion);
+    expect(storedPlato!.precio).toEqual(plato.precio);
+  });
+
+  it('update should throw an exception for an invalid plato', async () => {
+    await seedDatabase();
+    let plato: PlatoEntity = platosList[0];
+    plato = {
+      ...plato, nombre: "New name", descripcion: "New description", precio: 100
+    }
+    plato.categoria = "invalid_categoria";
+    await expect(() => service.update(plato.id, plato)).rejects.toHaveProperty("message", "El tipo de plato no es valido o el precio es menor a cero");
+  });
+
+  it('delete should remove a plato', async () => {
+    await seedDatabase();
+    const plato: PlatoEntity = platosList[0];
+    await service.delete(plato.id);
+
+    const deletedPlato: PlatoEntity | null = await repository.findOne({ where: { id: plato.id } });
+    expect(deletedPlato).toBeNull();
+  });
+
+  it('delete should throw an exception for an invalid plato', async () => {
+    await seedDatabase();
+    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "El plato con el id dado no fue encontrado");
+  });
+
 
 
   
