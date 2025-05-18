@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
 
 @Entity()
 export class PlatoEntity {
@@ -14,5 +15,8 @@ export class PlatoEntity {
     @Column()
     categoria: string;
 
-    
+    @ManyToMany(() => RestauranteEntity, (restaurante) => restaurante.platos)
+    restaurantes: RestauranteEntity[];
+
+
 }
