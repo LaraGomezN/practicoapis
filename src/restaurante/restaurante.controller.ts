@@ -5,7 +5,7 @@ import { RestauranteDto } from './restaurante.dto';
 import { RestauranteEntity } from './restaurante.entity';
 import { plainToInstance } from 'class-transformer';
 
-@Controller('restaurantes')
+@Controller('restaurants')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class RestauranteController {
     constructor(private readonly restauranteService: RestauranteService) {}

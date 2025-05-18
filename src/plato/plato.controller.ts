@@ -5,7 +5,7 @@ import { PlatoDto } from './plato.dto';
 import { PlatoEntity } from './plato.entity';
 import { plainToInstance } from 'class-transformer';
 
-@Controller('platos')
+@Controller('dishes')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class PlatoController {
     constructor(private readonly platoService: PlatoService) {}
