@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PlatoEntity } from 'src/plato/plato.entity';
-import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
-import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
+import { PlatoEntity } from '../plato/plato.entity';
+import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
+import { RestauranteEntity } from '../restaurante/restaurante.entity';
 
 @Injectable()
 export class RestaurantePlatoService {
@@ -15,7 +15,7 @@ export class RestaurantePlatoService {
         private readonly platoRepository: Repository<PlatoEntity>,
     ) {}
 
-    async addDishToRestaurant(restaurantId: string, dishId: string): Promise<PlatoEntity> {
+    async addDishToRestaurant(restaurantId: string, dishId: string): Promise<RestauranteEntity> {
         const dish = await this.platoRepository.findOne({ where: { id: dishId } });
         if (!dish) 
             throw new BusinessLogicException('El plato con el id dado no fue encontrado', BusinessError.NOT_FOUND);
@@ -25,7 +25,7 @@ export class RestaurantePlatoService {
             throw new BusinessLogicException('El restaurante con el id dado no fue encontrado', BusinessError.NOT_FOUND);
 
         restaurant.platos = [...restaurant.platos, dish];
-        return await this.platoRepository.save(dish);
+        return await this.restauranteRepository.save(restaurant);
     }
 
     async findDishesFromRestaurant(restaurantId: string): Promise<PlatoEntity[]> {

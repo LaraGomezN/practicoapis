@@ -19,6 +19,7 @@ export class RestauranteEntity {
     paginaWeb: string;
 
     @ManyToMany(() => PlatoEntity, (plato) => plato.restaurantes)
+    // Restaurante va a ser la duena de la relacion
     @JoinTable()
     platos: PlatoEntity[];
 }
