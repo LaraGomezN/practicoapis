@@ -29,6 +29,7 @@ export class RestauranteController {
     @Put(':restauranteId')
     async update(@Param('restauranteId') restauranteId: string, @Body() restauranteDto: RestauranteDto) {
         const restaurante: RestauranteEntity = plainToInstance(RestauranteEntity, restauranteDto);
+        restaurante.id = restauranteId;
         return await this.restauranteService.update(restauranteId, restaurante);
     }
 

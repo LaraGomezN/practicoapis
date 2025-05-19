@@ -38,7 +38,7 @@ export class RestauranteService {
         if (!listaCocinas.includes(restaurante.tipoCocina)) 
             throw new BusinessLogicException('El tipo de cocina no es valido', BusinessError.PRECONDITION_FAILED);
 
-        return await this.restauranteRepository.save({ ...persistedRestaurante, ...restaurante });
+        return await this.restauranteRepository.save({ ...persistedRestaurante, ...restaurante, id });
     }
 
     async delete(id: string) {
