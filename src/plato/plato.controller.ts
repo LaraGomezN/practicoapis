@@ -29,6 +29,7 @@ export class PlatoController {
     @Put(':platoId')
     async update(@Param('platoId') platoId: string, @Body() platoDto: PlatoDto) {
         const plato: PlatoEntity = plainToInstance(PlatoEntity, platoDto);
+        plato.id = platoId;
         return await this.platoService.update(platoId, plato);
     }   
 

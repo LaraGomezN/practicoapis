@@ -38,7 +38,7 @@ export class PlatoService {
         if (!listaTipos.includes(plato.categoria) || plato.precio < 0) 
             throw new BusinessLogicException('El tipo de plato no es valido o el precio es menor a cero', BusinessError.PRECONDITION_FAILED);
 
-        return await this.platoRepository.save({ ...persistedPlato, ...plato });
+        return await this.platoRepository.save({ ...persistedPlato, ...plato, id });
     }
 
     async delete(id: string) {
